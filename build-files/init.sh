@@ -15,6 +15,10 @@ else
     PORT_WITH_PREFIX=":${PM_APP_PORT}"
 fi
 
+if [[ -f .env ]]; then
+  rm .env
+fi
+
 php artisan processmaker:install --no-interaction \
 --url=${PM_APP_URL}${PORT_WITH_PREFIX} \
 --broadcast-host=${PM_APP_URL}:${PM_BROADCASTER_PORT} \
