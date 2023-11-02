@@ -4,7 +4,7 @@ source ./_repo_vars.sh
 echo "Building project ${PROJECT_NAME}"
 
 TAG=${BUILD_IMAGE_NAME_AND_TAG}
-if [$# -ne 0];
+if [$# -ne 0]; then
   echo "Tag provided: ${TAG}"
   exit 1
 fi
