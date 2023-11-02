@@ -1,5 +1,9 @@
 set -ex
 
+if [[ "E" != "E${ENVFILE}" ]]; then
+  source ${ENVFILE}
+fi
+
 while ! mysqladmin ping -u pm -ppass -h ${PM_DB_HOST} -P ${PM_DB_PORT} --silent; do
     echo "Waiting for mysql"
     sleep 1

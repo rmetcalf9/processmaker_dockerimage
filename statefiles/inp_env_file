@@ -1,0 +1,9 @@
+export PM_APP_URL=http://localhost
+export PM_APP_PORT=10205
+export PM_BROADCASTER_PORT=6001
+export PM_DB_HOST=dmu-processmakermysqldb
+export PM_DB_PORT=3306
+export PM_DB_NAME=processmaker
+export PM_DB_USERNAME=pm
+export PM_DB_PASSWORD=pass
+export PM_REDIS_HOST=redis
