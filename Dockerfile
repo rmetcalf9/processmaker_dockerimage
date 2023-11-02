@@ -64,7 +64,8 @@ RUN npm install --unsafe-perm=true && npm run dev
 
 COPY build-files/laravel-echo-server.json .
 COPY build-files/init.sh .
+COPY build-files/restore_state.sh .
 
 RUN mkdir /statefiles && echo RJM=RJM >> /statefiles/.env
 
-CMD cp /statefiles/.env .env && supervisord --nodaemon
+CMD /code/pm4/restore_state.sh && supervisord --nodaemon

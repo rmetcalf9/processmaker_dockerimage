@@ -5,7 +5,7 @@ echo "Running database init process for project ${PROJECT_NAME}"
 
 CUR_DIR=$(pwd)
 
-docker run --rm -it --name ${PROJECT_NAME}_runinit \
+docker run --rm -it --name ${PROJECT_NAME}_init \
  --network main_net \
  -v "/var/run/docker.sock:/var/run/docker.sock" \
  -v "${CUR_DIR}/statefiles:/statefiles" \

@@ -38,3 +38,5 @@ echo "LARAVEL_ECHO_SERVER_AUTH_HOST=http://localhost" >> .env
 echo "SESSION_SECURE_COOKIE=false" >> .env
 
 cp .env /statefiles/.env
+cp /code/pm4/storage/oauth-private.key /statefiles/oauth-private.key
+cp /code/pm4/storage/oauth-public.key /statefiles/oauth-public.key
