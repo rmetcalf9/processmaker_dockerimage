@@ -41,8 +41,7 @@ php artisan processmaker:install --no-interaction \
 --data-port=${PM_DB_PORT} \
 --data-name=${PM_DB_NAME} \
 --data-username=${PM_DB_USERNAME} \
---data-password=${PM_DB_PASSWORD} \
---data-db-engine=${DATA_DB_ENGINE} \
+--data-password=${PM_DB_PASSWORD}
 --redis-host=redis
 
 echo "PROCESSMAKER_SCRIPTS_DOCKER=/usr/local/bin/docker" >> .env
