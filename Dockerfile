@@ -3,7 +3,7 @@ ARG PM_VERSION
 
 WORKDIR /tmp
 RUN wget https://github.com/ProcessMaker/processmaker/archive/refs/tags/v${PM_VERSION}.zip
-RUN unzip v${PM_VERSION}.zip && rm -rf /code/pm4 && mv processmaker-${PM_VERSION} /code/pm4
+RUN unzip v${PM_VERSION}.zip && rm -rf /code/pm4 && mkdir -p /code/pm4 && mv processmaker-${PM_VERSION} /code/pm4
 
 
 FROM ubuntu:20.04 as base
