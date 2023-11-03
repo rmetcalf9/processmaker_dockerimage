@@ -1,4 +1,4 @@
-FROM apline:3.18.4 as process_maker_download
+FROM alpine:3.18.4 as process_maker_download
 ARG PM_VERSION
 
 WORKDIR /tmp
