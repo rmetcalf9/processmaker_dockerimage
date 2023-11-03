@@ -60,7 +60,8 @@ RUN unzip v${PM_VERSION}.zip && rm -rf /code/pm4 && mv processmaker-${PM_VERSION
 WORKDIR /code/pm4
 RUN composer install
 COPY build-files/laravel-echo-server.json .
-RUN npm install --unsafe-perm=true && npm run dev
+###RUN npm install --unsafe-perm=true && npm run dev
+RUN npm install --unsafe-perm=true && npm run build
 
 COPY build-files/laravel-echo-server.json .
 COPY build-files/init.sh .
