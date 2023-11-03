@@ -1,10 +1,12 @@
-FROM alpine:3.18.4 as process_maker_download
+FROM ubuntu:20.04 as process_maker_download
 ARG PM_VERSION
+
+RUN apt update
+RUN apt install -y wget unzip
 
 WORKDIR /tmp
 RUN wget https://github.com/ProcessMaker/processmaker/archive/refs/tags/v${PM_VERSION}.zip
-RUN unzip v${PM_VERSION}.zip && rm -rf /code/pm4 && mkdir -p /code/pm4 && mv processmaker-${PM_VERSION} /code/pm4
-
+RUN unzip v${PM_VERSION}.zip
 
 FROM ubuntu:20.04 as base
 ENV DEBIAN_FRONTEND=noninteractive
@@ -43,13 +45,15 @@ WORKDIR /code/pm4
 EXPOSE 80 443 6001
 
 FROM base
+ARG PM_VERSION
 
+RUN rm -rf /code/pm4 && mkdir -p /code/pm4
 COPY --from=process_maker_download /tmp/processmaker-${PM_VERSION} /code/pm4
 
 WORKDIR /code/pm4
 RUN composer install
 COPY build-files/laravel-echo-server.json .
-RUN npm install --unsafe-perm=true && npm run dev
+RUN npm install --unsafe-perm=true && npm run prod
 
 COPY build-files/laravel-echo-server.json .
 COPY build-files/init.sh .
