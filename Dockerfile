@@ -67,6 +67,11 @@ COPY build-files/init.sh .
 COPY build-files/restore_state.sh .
 COPY build-files/config_database.php ./config/database.php
 
+COPY routes/api.php ./routes/api.php
+COPY routes/channels.php ./routes/channels.php
+COPY routes/console.php ./routes/console.php
+COPY routes/web.php ./routes/web.php
+
 RUN mkdir /statefiles && echo RJM=RJM >> /statefiles/.env
 
 CMD /code/pm4/restore_state.sh && supervisord --nodaemon
