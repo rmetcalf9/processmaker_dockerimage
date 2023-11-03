@@ -15,6 +15,10 @@ else
     PORT_WITH_PREFIX=":${PM_APP_PORT}"
 fi
 
+if [ "E${DATA_DB_ENGINE}" = "E" ]; then
+  DATA_DB_ENGINE=InnoDB
+fi
+
 if [[ -f .env ]]; then
   rm .env
 fi
@@ -38,6 +42,7 @@ php artisan processmaker:install --no-interaction \
 --data-name=${PM_DB_NAME} \
 --data-username=${PM_DB_USERNAME} \
 --data-password=${PM_DB_PASSWORD} \
+--data-db-engine=${DATA_DB_ENGINE} \
 --redis-host=redis
 
 echo "PROCESSMAKER_SCRIPTS_DOCKER=/usr/local/bin/docker" >> .env
