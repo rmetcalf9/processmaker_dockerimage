@@ -6,3 +6,5 @@ download and install processmaker every time it is run!! Startup time is horribl
 
 This image does the processmaker download and install in the build phase and the
 image will just launch processmaker when run.
+
+To use this the database has to be inited. See my infastructure repo

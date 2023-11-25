@@ -25,7 +25,7 @@ fi
 
 php artisan processmaker:install --no-interaction \
 --url=${PM_APP_URL}${PORT_WITH_PREFIX} \
---broadcast-host=${PM_APP_URL}:${PM_BROADCASTER_PORT} \
+--broadcast-host=${PM_BROADCAST_HOST} \
 --username=admin \
 --password=admin123 \
 --email=admin@processmaker.com \
