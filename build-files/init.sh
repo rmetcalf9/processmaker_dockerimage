@@ -22,6 +22,9 @@ fi
 if [[ -f .env ]]; then
   rm .env
 fi
+if [[ -f .env ]]; then
+  rm /statefiles/.env
+fi
 
 if [[ "E${PM_INITIAL_ADMIN_PASS}" = "E" ]]; then
   PM_INITIAL_ADMIN_PASS=admin123
