@@ -23,11 +23,15 @@ if [[ -f .env ]]; then
   rm .env
 fi
 
+if [[ "E${PM_INITIAL_ADMIN_PASS}"] = "E" ]; then
+  PM_INITIAL_ADMIN_PASS=admin123
+fi
+
 php artisan processmaker:install --no-interaction \
 --url=${PM_APP_URL}${PORT_WITH_PREFIX} \
 --broadcast-host=${PM_BROADCAST_HOST} \
 --username=admin \
---password=admin123 \
+--password=${PM_INITIAL_ADMIN_PASS} \
 --email=admin@processmaker.com \
 --first-name=Admin \
 --last-name=User \
