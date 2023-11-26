@@ -1,6 +1,8 @@
 daemon off;
 user root root;
 
+#RJM TODO https://github.com/ProcessMaker/processmaker/issues/4289
+
 worker_processes 1;
 # error_log /var/log/nginx/error.log info;
 error_log /dev/stderr info;
@@ -23,6 +25,11 @@ http {
         root /code/pm4/public;
 
         index index.php index.html index.htm;
+
+        #location /socket.io {
+        #    proxy_pass http://localhost:6001/socket.io;
+        #}
+
         location / {
             try_files $uri $uri/ /index.php$is_args$args;
         }
@@ -37,6 +44,7 @@ http {
             fastcgi_param  SCRIPT_FILENAME  /$document_root$fastcgi_script_name;
             include        fastcgi_params;
         }
+
 
     }
 }
