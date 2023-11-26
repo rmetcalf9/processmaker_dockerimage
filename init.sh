@@ -3,6 +3,10 @@
 source ./_repo_vars.sh
 echo "Running database init process for project ${PROJECT_NAME}"
 
+
+docker exec -i dev_machine_utilities_dmu-processmakermysqldb.1.nej79426mumtshfvp54f1b3dz mysql -pprocessmakermysqldb_examplepassword < ./_init_setup_database.sql
+
+
 CUR_DIR=$(pwd)
 
 docker run --rm -it --name ${PROJECT_NAME}_init \
