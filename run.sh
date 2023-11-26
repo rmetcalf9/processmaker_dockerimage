@@ -5,6 +5,8 @@ echo "Running process for project ${PROJECT_NAME}"
 
 CUR_DIR=$(pwd)
 
+echo "Using ${PM_APP_PORT}"
+
 docker run --rm -it --name ${PROJECT_NAME}_run \
  --network main_net \
  -v "/var/run/docker.sock:/var/run/docker.sock" \

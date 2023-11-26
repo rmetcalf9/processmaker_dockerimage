@@ -9,12 +9,6 @@ while ! mysqladmin ping -u pm -ppass -h ${PM_DB_HOST} -P ${PM_DB_PORT} --silent;
     sleep 1
 done
 
-if [ "${PM_APP_PORT}" = "80" ]; then
-    PORT_WITH_PREFIX=""
-else
-    PORT_WITH_PREFIX=":${PM_APP_PORT}"
-fi
-
 if [ "E${DATA_DB_ENGINE}" = "E" ]; then
   DATA_DB_ENGINE=InnoDB
 fi
@@ -31,7 +25,7 @@ if [[ "E${PM_INITIAL_ADMIN_PASS}" = "E" ]]; then
 fi
 
 php artisan processmaker:install --no-interaction \
---url=${PM_APP_URL}${PORT_WITH_PREFIX} \
+--url=${APP_URL} \
 --broadcast-host=${PM_BROADCAST_HOST} \
 --username=admin \
 --password=${PM_INITIAL_ADMIN_PASS} \

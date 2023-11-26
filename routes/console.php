@@ -1,5 +1,5 @@
 <?php
-URL::forceRootUrl(env('RJM_ROOT_URL','https://processmaker.metcarob.com'));
+URL::forceRootUrl(env('APP_URL','https://processmaker.metcarob.com'));
 
 
 use Illuminate\Foundation\Inspiring;
