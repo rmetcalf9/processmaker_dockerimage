@@ -45,6 +45,12 @@ php artisan processmaker:install --no-interaction \
 --data-password=${PM_DB_PASSWORD} \
 --redis-host=redis
 
+if [[ ! -f .env ]]; then
+  echo "ERROR install process did not create an env file"
+  exit 1
+fi
+
+
 echo "PROCESSMAKER_SCRIPTS_DOCKER=/usr/local/bin/docker" >> .env
 echo "PROCESSMAKER_SCRIPTS_DOCKER_MODE=copying" >> .env
 echo "LARAVEL_ECHO_SERVER_AUTH_HOST=http://localhost" >> .env
@@ -53,3 +59,5 @@ echo "SESSION_SECURE_COOKIE=false" >> .env
 cp .env /statefiles/.env
 cp /code/pm4/storage/oauth-private.key /statefiles/oauth-private.key
 cp /code/pm4/storage/oauth-public.key /statefiles/oauth-public.key
+
+exit 0
