@@ -1,7 +1,7 @@
 export PM_INITIAL_ADMIN_PASS=admin123
 export PM_BROADCAST_HOST=http://localhost:6001
 export PM_DOCKER_SOCK=/var/run/docker.sock
-export PM_DB_HOST=dmu-processmakermysqldb
+export PM_DB_HOST=dmu-testingmysqldb
 export PM_DB_PORT=3306
 export PM_DB_NAME=processmaker
 export PM_DB_USERNAME=pm
