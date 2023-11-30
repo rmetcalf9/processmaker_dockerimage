@@ -16,10 +16,16 @@ fi
 cp /statefiles/.env .env
 # This is after .env produced by init so passed env overrides
 if [[ "E" != "E${ENVFILE}" ]]; then
-  cat ${ENVFILE} >> .env
+  if [[ ! -f ${ENVFILE} ]]; then
+      echo "ERROR - ${ENVFILE} not found"
+      exit 1
+  else
+    echo "WARNING - skipping env file not used in run (only init)"
+    #cat ${ENVFILE} >> .env
+  fi
 fi
-cp /statefiles/oauth-private.key /code/pm4/storage/oauth-private.key
-cp /statefiles/oauth-public.key /code/pm4/storage/oauth-public.key
+#cp /statefiles/oauth-private.key /code/pm4/storage/oauth-private.key
+#cp /statefiles/oauth-public.key /code/pm4/storage/oauth-public.key
 
 echo "Restore state complete"
 exit 0

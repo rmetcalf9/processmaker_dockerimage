@@ -1,3 +1,4 @@
+#!/bin/bash
 set -ex
 
 if [[ "E" != "E${ENVFILE}" ]]; then
@@ -13,12 +14,17 @@ if [ "E${DATA_DB_ENGINE}" = "E" ]; then
   DATA_DB_ENGINE=InnoDB
 fi
 
-if [[ -f .env ]]; then
-  rm .env
-fi
-if [[ -f .env ]]; then
-  rm /statefiles/.env
-fi
+created_files=(".env" "/code/pm4/storage/oauth-private.key" "/code/pm4/storage/oauth-public.key")
+
+for t in ${created_files[@]}; do
+  base_name=$(basename ${t})
+  if [[ -f ${t} ]]; then
+    rm ${t}
+  fi
+  if [[ -f /statefiles/${base_name} ]]; then
+    rm /statefiles/${base_name}
+  fi
+done
 
 if [[ "E${PM_INITIAL_ADMIN_PASS}" = "E" ]]; then
   PM_INITIAL_ADMIN_PASS=admin123
@@ -45,19 +51,20 @@ php artisan processmaker:install --no-interaction \
 --data-password=${PM_DB_PASSWORD} \
 --redis-host=redis
 
-if [[ ! -f .env ]]; then
-  echo "ERROR install process did not create an env file"
-  exit 1
-fi
+for t in ${created_files[@]}; do
+  base_name=$(basename ${t})
+  if [[ ! -f ${t} ]]; then
+    echo "ERROR install process did not create ${t}"
+    exit 1
+  fi
+  cp ${t} /statefiles/${base_name}
+done
 
+##echo "PROCESSMAKER_SCRIPTS_DOCKER=/usr/local/bin/docker" >> .env
+##echo "PROCESSMAKER_SCRIPTS_DOCKER_MODE=copying" >> .env
+##echo "LARAVEL_ECHO_SERVER_AUTH_HOST=http://localhost" >> .env
+##echo "SESSION_SECURE_COOKIE=false" >> .env
 
-echo "PROCESSMAKER_SCRIPTS_DOCKER=/usr/local/bin/docker" >> .env
-echo "PROCESSMAKER_SCRIPTS_DOCKER_MODE=copying" >> .env
-echo "LARAVEL_ECHO_SERVER_AUTH_HOST=http://localhost" >> .env
-echo "SESSION_SECURE_COOKIE=false" >> .env
-
-cp .env /statefiles/.env
-cp /code/pm4/storage/oauth-private.key /statefiles/oauth-private.key
-cp /code/pm4/storage/oauth-public.key /statefiles/oauth-public.key
+echo "Init.sh complete"
 
 exit 0
