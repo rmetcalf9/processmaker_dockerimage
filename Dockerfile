@@ -93,10 +93,11 @@ COPY build-files/init.sh .
 COPY build-files/config_database.php ./config/database.php
 COPY build-files/restore_state.sh .
 
-#COPY routes/api.php ./routes/api.php
-#COPY routes/channels.php ./routes/channels.php
-#COPY routes/console.php ./routes/console.php
-#COPY routes/web.php ./routes/web.php
+COPY routes/api.php ./routes/api.php
+COPY routes/channels.php ./routes/channels.php
+COPY routes/console.php ./routes/console.php
+COPY routes/engine.php ./routes/engine.php
+COPY routes/web.php ./routes/web.php
 
 RUN mkdir /statefiles && echo RJM=RJM >> /statefiles/.env
 
