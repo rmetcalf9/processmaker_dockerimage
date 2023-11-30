@@ -63,6 +63,13 @@ echo "LARAVEL_ECHO_SERVER_AUTH_HOST=http://localhost" >> .env
 echo "SESSION_SECURE_COOKIE=false" >> .env
 echo "SESSION_DOMAIN=" >> .env
 
+## Extra variables
+echo "" >> .env
+echo "# RJM Extra variables for fixes I had to do for reverse proxy compatibility" >> .env
+if [ "E${APP_URL_FOR_PHP_ROUTES}" = "E" ]; then
+  APP_URL_FOR_PHP_ROUTES=${APP_URL}
+fi
+echo "APP_URL_FOR_PHP_ROUTES=${APP_URL_FOR_PHP_ROUTES}" >> .env
 
 echo "Saving required state to volume"
 for t in ${created_files[@]}; do
