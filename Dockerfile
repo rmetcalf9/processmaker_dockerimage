@@ -90,8 +90,8 @@ RUN npm install --unsafe-perm=true && NODE_OPTIONS="--max-old-space-size=2048" n
 
 COPY build-files/laravel-echo-server.json .
 COPY build-files/init.sh .
-COPY build-files/restore_state.sh .
 COPY build-files/config_database.php ./config/database.php
+COPY build-files/restore_state.sh .
 
 #COPY routes/api.php ./routes/api.php
 #COPY routes/channels.php ./routes/channels.php

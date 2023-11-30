@@ -14,8 +14,13 @@ if [ "E${DATA_DB_ENGINE}" = "E" ]; then
   DATA_DB_ENGINE=InnoDB
 fi
 
+if [[ "E${PM_INITIAL_ADMIN_PASS}" = "E" ]]; then
+  PM_INITIAL_ADMIN_PASS=admin123
+fi
+
 created_files=(".env" "/code/pm4/storage/oauth-private.key" "/code/pm4/storage/oauth-public.key")
 
+# Check if any of the output files are present and if they are delete them.
 for t in ${created_files[@]}; do
   base_name=$(basename ${t})
   if [[ -f ${t} ]]; then
@@ -26,9 +31,7 @@ for t in ${created_files[@]}; do
   fi
 done
 
-if [[ "E${PM_INITIAL_ADMIN_PASS}" = "E" ]]; then
-  PM_INITIAL_ADMIN_PASS=admin123
-fi
+SKIP_EXECUTORS=TRUE
 
 php artisan processmaker:install --no-interaction \
 --url=${APP_URL} \
@@ -51,6 +54,17 @@ php artisan processmaker:install --no-interaction \
 --data-password=${PM_DB_PASSWORD} \
 --redis-host=redis
 
+## Fixes to .env file. These appear AFTER so should override
+echo "" >> .env
+echo "# RJM Fixes to generated .env file" >> .env
+echo "PROCESSMAKER_SCRIPTS_DOCKER=/usr/local/bin/docker" >> .env
+echo "PROCESSMAKER_SCRIPTS_DOCKER_MODE=copying" >> .env
+echo "LARAVEL_ECHO_SERVER_AUTH_HOST=http://localhost" >> .env
+echo "SESSION_SECURE_COOKIE=false" >> .env
+echo "SESSION_DOMAIN=" >> .env
+
+
+echo "Saving required state to volume"
 for t in ${created_files[@]}; do
   base_name=$(basename ${t})
   if [[ ! -f ${t} ]]; then
@@ -60,11 +74,5 @@ for t in ${created_files[@]}; do
   cp ${t} /statefiles/${base_name}
 done
 
-##echo "PROCESSMAKER_SCRIPTS_DOCKER=/usr/local/bin/docker" >> .env
-##echo "PROCESSMAKER_SCRIPTS_DOCKER_MODE=copying" >> .env
-##echo "LARAVEL_ECHO_SERVER_AUTH_HOST=http://localhost" >> .env
-##echo "SESSION_SECURE_COOKIE=false" >> .env
-
-echo "Init.sh complete"
-
+###supervisord --nodaemon
 exit 0

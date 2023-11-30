@@ -18,8 +18,8 @@ docker run --rm -it --name ${PROJECT_NAME}_init \
  --network main_net \
  -v "/var/run/docker.sock:/var/run/docker.sock" \
  -v "${CUR_DIR}/statefiles:/statefiles" \
- -v "${CUR_DIR}/codepm4:/codepm4" \
  -e "ENVFILE=/statefiles/inp_env_file" \
+ -p ${PM_APP_PORT}:80 \
  ${BUILD_IMAGE_NAME_AND_TAG} bash init.sh
 
 exit 0

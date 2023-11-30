@@ -1,31 +1,14 @@
 #!/bin/bash
 
-echo "Restoring state"
 
-if [[ "E" != "E${ENVFILE}" ]]; then
-  echo " environment supplied - ${ENVFILE}"
-  source ${ENVFILE}
-fi
+created_files=(".env" "/code/pm4/storage/oauth-private.key" "/code/pm4/storage/oauth-public.key")
 
-if [[ ! -f /statefiles/.env ]]; then
-  echo "ERROR /statefiles/.env is missing can not start"
-  echo "     is using volumes was the init process run on the right node???"
-  exit 1
-fi
-
-cp /statefiles/.env .env
-# This is after .env produced by init so passed env overrides
-if [[ "E" != "E${ENVFILE}" ]]; then
-  if [[ ! -f ${ENVFILE} ]]; then
-      echo "ERROR - ${ENVFILE} not found"
-      exit 1
-  else
-    echo "WARNING - skipping env file not used in run (only init)"
-    #cat ${ENVFILE} >> .env
+for t in ${created_files[@]}; do
+  base_name=$(basename ${t})
+  if [[ ! -f /statefiles/${base_name} ]]; then
+    echo "ERROR State file missing - have you run init? - ${base_name}"
   fi
-fi
-#cp /statefiles/oauth-private.key /code/pm4/storage/oauth-private.key
-#cp /statefiles/oauth-public.key /code/pm4/storage/oauth-public.key
+  cp /statefiles/${base_name} ${t}
+done
 
-echo "Restore state complete"
 exit 0
