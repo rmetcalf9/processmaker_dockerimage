@@ -8,3 +8,17 @@ This image does the processmaker download and install in the build phase and the
 image will just launch processmaker when run.
 
 To use this the database has to be inited. See my infastructure repo
+
+
+
+## Steps to install a new package
+
+### Add to docker file
+just add composer require
+
+### build new image
+
+### run the container
+
+### run INIT Step to do DB install
+php artisan processmaker-docker-executor-python:install

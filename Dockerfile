@@ -88,6 +88,10 @@ RUN composer install
 COPY build-files/laravel-echo-server.json .
 RUN npm install --unsafe-perm=true && NODE_OPTIONS="--max-old-space-size=2048" npm run prod
 
+# Add packages
+# See https://processmaker.gitbook.io/processmaker-release-notes/v/processmaker-4.1/processmaker-4.1.18-release-notes/core-4.1.18-product-versions
+RUN composer require metcarob/docker-executor-python "1.1.12" --ignore-platform-reqs
+
 COPY build-files/laravel-echo-server.json .
 COPY build-files/init.sh .
 COPY build-files/config_database.php ./config/database.php
