@@ -103,6 +103,12 @@ COPY routes/console.php ./routes/console.php
 COPY routes/engine.php ./routes/engine.php
 COPY routes/web.php ./routes/web.php
 
+# Hack to make it use images from my own repo for script executors
+RUN sed -i "s/return \x22processmaker4\/executor-{\x24instance}-{\x24lang}-{\x24id}:{\x24tag}\x22;/return \x22dockerregistry.metcarob.com\/executor-{\x24instance}-{\x24lang}-{\x24id}:{\x24tag}\x22;/g" ./ProcessMaker/Models/ScriptExecutor.php
+
+RUN sed -i "s/\x24filter = \x22processmaker4\/executor-{\x24instance}-\x22;/\x24filter = \x22dockerregistry.metcarob.com\/executor-{\x24instance}-\x22;/g" ./ProcessMaker/Models/ScriptExecutor.php
+
+
 RUN mkdir /statefiles && echo RJM=RJM >> /statefiles/.env
 
 # service.conf can not use variable PHP version so make shortcuts to files it uses
