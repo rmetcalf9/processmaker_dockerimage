@@ -1,5 +1,8 @@
 #!/bin/bash
 
+if [[ "E" != "E${ENVFILE}" ]]; then
+  source ${ENVFILE}
+fi
 
 created_files=(".env" "/code/pm4/storage/oauth-private.key" "/code/pm4/storage/oauth-public.key")
 
