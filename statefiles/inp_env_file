@@ -13,3 +13,5 @@ export PM_APP_PORT=10205 #Used in docker run
 ##export APP_URL=http://localhost:10205
 export APP_URL=http://localhost
 export APP_URL_FOR_PHP_ROUTES=http://localhost:10205
+
+export RJM_DOCKER_LOGIN_REQUIRED="true"

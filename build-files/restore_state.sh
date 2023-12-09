@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [[ "E" != "E${ENVFILE}" ]]; then
-  source ${ENVFILE}
-fi
+#if [[ "E" != "E${ENVFILE}" ]]; then
+#  source ${ENVFILE}
+#fi
 
 created_files=(".env" "/code/pm4/storage/oauth-private.key" "/code/pm4/storage/oauth-public.key")
 
@@ -13,5 +13,7 @@ for t in ${created_files[@]}; do
   fi
   cp /statefiles/${base_name} ${t}
 done
+
+cat ${ENVFILE} >> .env
 
 exit 0
