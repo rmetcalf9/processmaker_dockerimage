@@ -104,6 +104,9 @@ COPY routes/console.php ./routes/console.php
 COPY routes/engine.php ./routes/engine.php
 COPY routes/web.php ./routes/web.php
 
+COPY replace_php_files/Base.php ./ProcessMaker/ScriptRunners/Base.php
+
+
 # Hack to make it use images from my own repo for script executors
 RUN sed -i "s/return \x22processmaker4\/executor-{\x24instance}-{\x24lang}-{\x24id}:{\x24tag}\x22;/return \x22dockerregistry.metcarob.com\/executor-{\x24instance}-{\x24lang}-{\x24id}:{\x24tag}\x22;/g" ./ProcessMaker/Models/ScriptExecutor.php
 
