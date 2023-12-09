@@ -77,6 +77,7 @@ EXPOSE 80 443 6001
 
 FROM base
 ARG PM_VERSION
+ARG METCAROB_DOCKER_EXECUTOR_PYTHON_CONTAINER_VERSION
 
 RUN rm -rf /code/pm4 && mkdir -p /code/pm4
 COPY --from=process_maker_download /tmp/processmaker-${PM_VERSION} /code/pm4
@@ -90,7 +91,7 @@ RUN npm install --unsafe-perm=true && NODE_OPTIONS="--max-old-space-size=2048" n
 
 # Add packages
 # See https://processmaker.gitbook.io/processmaker-release-notes/v/processmaker-4.1/processmaker-4.1.18-release-notes/core-4.1.18-product-versions
-RUN composer require metcarob/docker-executor-python "1.1.12" --ignore-platform-reqs
+RUN composer require metcarob/docker-executor-python "${METCAROB_DOCKER_EXECUTOR_PYTHON_CONTAINER_VERSION}" --ignore-platform-reqs
 
 COPY build-files/laravel-echo-server.json .
 COPY build-files/init.sh .

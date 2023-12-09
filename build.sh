@@ -9,7 +9,7 @@ if [ $# -ne 0 ]; then
   echo "Tag provided: ${TAG}"
 fi
 
-docker build --build-arg="PM_VERSION=4.8.1" --build-arg="UBUNTU_CONTAINER=ubuntu:22.04" --build-arg="PHP_VER=8.2" . -t ${TAG}
+docker build --build-arg="PM_VERSION=4.8.1" --build-arg="UBUNTU_CONTAINER=ubuntu:22.04" --build-arg="PHP_VER=8.2" --build-arg="METCAROB_DOCKER_EXECUTOR_PYTHON_CONTAINER_VERSION=${METCAROB_DOCKER_EXECUTOR_PYTHON_CONTAINER_VERSION}" . -t ${TAG}
 
 #PM VERSION 4.8.1  - Traits error with PHP 8.1 (Needs 8.2 but I get other error with 8.2)
 
